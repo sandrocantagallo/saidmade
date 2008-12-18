@@ -1,0 +1,9 @@
+﻿a,a:link,a:visited {
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:12px;
+	color:#0096ff;
+	text-decoration:underline;
+	}
+a:hover{
+	color:#ff9900
+	}

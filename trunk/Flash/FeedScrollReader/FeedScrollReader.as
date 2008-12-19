@@ -74,7 +74,7 @@
 		 */
 		function FeedScrollReader() {
 			trace( 'FeedScrollReader::constructor' );
-			main();
+			addEventListener( Event.ADDED_TO_STAGE, main );
 		}
 		
 		/**
@@ -82,21 +82,24 @@
 		 *
 		 * @private
 		 */
-		private function main():void {
+		private function main(e:Event = null):void {
 			stage.scaleMode 	= StageScaleMode.NO_SCALE;		// no-size
 			stage.align			= StageAlign.TOP_LEFT;			// align to top left
-
+			
 			/**
 			 * Default options for Feed Scroll Reader
 			 */
 			_params				= loaderInfo.parameters;
-			if( _params.length == undefined) _params = { scrollspeed	: 15,
+			
+			if( _params.feedurl == undefined) _params = { scrollspeed	: 15,
 														 stylesheet		: 'style.css',
 														 separator		: ' * ',
-														 description	: false,
-														 stringcut		: 50,
-														 feedurl		: 'http://www.undolog.com/feed'
+														 description	: '0',
+														 stringcut		: '50',
+														 feedurl		: 'http://www.undolog.com/feed',
+														 usegateway		: ''
 														};
+														
 			/**
 			 * Set the Timer for scroll
 			 */
@@ -112,16 +115,16 @@
 		 * @private
 		 */
 		private function loadFeed():void {
-			_loader = new URLLoader( new URLRequest( _params.feedurl ) );
+			_loader = new URLLoader( new URLRequest( ( (_params.usegateway=='')?_params.feedurl:_params.usegateway ) ) );
 			_loader.addEventListener(Event.COMPLETE, 
 				function ( e:Event ):void {
 					_rssXML 	= XML( _loader.data );
 					for each (var item:XML in _rssXML..item) {
 						var itemTitle		:String 	= item.title.toString();
-						var itemDescription	:String 	= item.description.toString().substr(0, _params.stringcut)+'[...]';
+						var itemDescription	:String 	= item.description.toString().substr(0, uint(_params.stringcut) )+'[...]';
 						var itemLink		:String 	= item.link.toString();
 						var buf				:String 	= '<a href="'+itemLink+'">'+itemTitle+'</a>'+
-						                                  ( _params.description ? ' - <p>'+itemDescription+'</p>' : '' );
+						                                  ( (_params.description == '1') ? ' - <p>'+itemDescription+'</p>' : '' );
 						_output += (_output == '')?buf:(' '+_params.separator+' '+buf);
 					}
 					loadCSS();
@@ -182,5 +185,11 @@
 				if( _scrollText.x < -_scrollText.width ) _scrollText.x = stage.stageWidth;
 			}
 		}
+		
+		/* _______________________________________________________________ DEBUG
+		private function log( s ):void {
+			debug.appendText( '>'+s+'\n' );
+		}
+		*/
 	}
 }

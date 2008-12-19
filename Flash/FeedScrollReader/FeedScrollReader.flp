@@ -1,0 +1,7 @@
+﻿<flash_project name="FeedScrollReader" version="1">
+    <project_folder name="css" expanded="true">
+        <project_file path="./style.css" filetype="css" />
+    </project_folder>
+    <project_file path="./FeedScrollReader.as" filetype="as" />
+    <project_file path="./feedscrollreader.fla" filetype="fla" profile="" def_file="true" />
+</flash_project>

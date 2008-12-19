@@ -2,13 +2,29 @@
 	/**
 	 * Feed Scroll Reader
 	 *
-	 * Lettore di Feed RSS con scrolling dei titoli
+	 * Feed Scroll Reader is a Flash Feed Reader with horizontal scrolling. You
+	 * can set some options from object data value or from MIME GET in the swf
+	 * file. For example:
 	 *
-	 * Feed Scroll Reader is released under version 3.0 of the Creative Commons Attribution-
-	 * Noncommercial-Share Alike license. This means that it is absolutely free
-	 * for personal, noncommercial use provided that you 1) make attribution to the
-	 * author and 2) release any derivative work under the same or a similar
-	 * license.
+	 * <object data="flash/filmato.swf?scrollspeed=5" type="application/x-shockwave-flash" 
+	 * height="200" width="200"></object>
+	 *
+	 * <object data="flash/filmato.swf" type="application/x-shockwave-flash" height="200" width="200">
+	 * 		<param value="scrollspeed=5" name="flashvars" />
+	 * </object>
+	 *
+	 * @param	(boolean)	description	True for showing description feed too. [default=false]
+	 * @param	(string)	feedurl		Feed URL address. [default='http://www.undolog.com']
+	 * @param	(uint)		scrollspeed	Scroll speed ms. [default=15]
+	 * @param	(string)	separator	HTML string between feed item. [default=' * ']
+	 * @param	(uint)		stringcut	Char number for cut description. [default=50]
+	 * @param	(string)	stylesheet	StyleSheet URL address. [default='style.css']
+	 *
+	 * Feed Scroll Reader is released under version 3.0 of the Creative Commons 
+	 * Attribution-Noncommercial-Share Alike license. This means that it is 
+	 * absolutely free for personal, noncommercial use provided that you 1)
+	 * make attribution to the author and 2) release any derivative work under
+	 * the same or a similar license.
 	 *
 	 * This program is distributed in the hope that it will be useful,
 	 * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -51,39 +67,49 @@
 		private var _rssXML						:XML;
 		private var _output						:String			= '';
 		
-		
+		/**
+		 * Feed Scroll Reader constructor
+		 *
+		 * @internal
+		 */
 		function FeedScrollReader() {
 			trace( 'FeedScrollReader::constructor' );
 			main();
 		}
 		
 		/**
-		 * Avvio
+		 * Feed Scroll Reader main
+		 *
+		 * @private
 		 */
 		private function main():void {
-			stage.scaleMode 	= StageScaleMode.NO_SCALE;
-			stage.align			= StageAlign.TOP_LEFT;
-			//
-			// prelevo le informazioni passate runtime al filmato sulla pagina
-			// se queste sono null ne imposto alcune di default
+			stage.scaleMode 	= StageScaleMode.NO_SCALE;		// no-size
+			stage.align			= StageAlign.TOP_LEFT;			// align to top left
+
+			/**
+			 * Default options for Feed Scroll Reader
+			 */
 			_params				= loaderInfo.parameters;
-			if( _params.length == undefined) _params = { speed			: 15,
-														 style			: 'style.css',
+			if( _params.length == undefined) _params = { scrollspeed	: 15,
+														 stylesheet		: 'style.css',
 														 separator		: ' * ',
 														 description	: false,
-														 wordcut		: 50,
+														 stringcut		: 50,
 														 feedurl		: 'http://www.undolog.com/feed'
 														};
-			// imposto il timer
-			_timer = new Timer( _params.speed );
+			/**
+			 * Set the Timer for scroll
+			 */
+			_timer = new Timer( _params.scrollspeed );
 			_timer.addEventListener( TimerEvent.TIMER, scrolling );
 			
-			// carico i feed			
-			loadFeed();
+			loadFeed();				// load feed
 		}
 		
 		/**
-		 * Carica i feed
+		 * Read Feed RSS from URL
+		 *
+		 * @private
 		 */
 		private function loadFeed():void {
 			_loader = new URLLoader( new URLRequest( _params.feedurl ) );
@@ -92,7 +118,7 @@
 					_rssXML 	= XML( _loader.data );
 					for each (var item:XML in _rssXML..item) {
 						var itemTitle		:String 	= item.title.toString();
-						var itemDescription	:String 	= item.description.toString().substr(0, _params.wordcut)+'[...]';
+						var itemDescription	:String 	= item.description.toString().substr(0, _params.stringcut)+'[...]';
 						var itemLink		:String 	= item.link.toString();
 						var buf				:String 	= '<a href="'+itemLink+'">'+itemTitle+'</a>'+
 						                                  ( _params.description ? ' - <p>'+itemDescription+'</p>' : '' );
@@ -104,10 +130,12 @@
 		}
 
 		/**
-		 * Carica il foglio di stile per il rendering dello scrolling
+		 * Load StyleSheet
+		 *
+		 * @param
 		 */
 		private function loadCSS():void {
-            _loader = new URLLoader( new URLRequest( _params.style ) );
+            _loader = new URLLoader( new URLRequest( _params.stylesheet ) );
             _loader.addEventListener(Event.COMPLETE, 
 				function ( e:Event ):void {
 					_style	= new StyleSheet();
@@ -118,30 +146,35 @@
 		}
 		
 		/**
-		 * Crea un testo 'lungo' in formato HTML con la lista dei feed
+		 * Init the HTML TextField
+		 *
+		 * @private
 		 */
 		private function initScroll():void {
 			_scrollText			= new TextField();
 			_scrollText.x		= stage.stageWidth;
 			//
-			_scrollText.htmlText 		= '';
-			_scrollText.cacheAsBitmap	= true;
-			_scrollText.styleSheet		= _style
-			_scrollText.autoSize		= TextFieldAutoSize.LEFT;
-			_scrollText.wordWrap		= false;
-			_scrollText.htmlText 		= _output;
-			//
+			_scrollText.htmlText 		= '';						// empty string
+			_scrollText.cacheAsBitmap	= true;						// cache like bitmap
+			_scrollText.styleSheet		= _style					// set the style sheet
+			_scrollText.autoSize		= TextFieldAutoSize.LEFT;	// autosize width
+			_scrollText.wordWrap		= false;					// no word wrap
+			_scrollText.htmlText 		= _output;					// feed
+			
+			/**
+			 * Set Event for Mouse roll over and roll out stop scrolling
+			 */
 			addEventListener( MouseEvent.ROLL_OVER, function(e:MouseEvent) { _pause = true; } );
 			addEventListener( MouseEvent.ROLL_OUT, function(e:MouseEvent) { _pause = false; } );
-			//
-			addChild( _scrollText );
-			//
-			_timer.start();
+			
+			addChild( _scrollText );								// add text
+			_timer.start();											// start scroll
 		}
 		
 		/**
-		 * Esegue lo scrolling vero e proprio. Questa funzione viene richiamata
-		 * ogni n millisecondi in base alle impostazioni ricevuti in loaderInfo.
+		 * This funzion is trigged by Timer every _param.scrollspeed milliseconds
+		 * 
+		 * @private
 		 */
 		private function scrolling(e:TimerEvent):void {
 			if( !_pause) {

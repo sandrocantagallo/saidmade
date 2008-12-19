@@ -6,10 +6,10 @@
 	 * can set some options from object data value or from MIME GET in the swf
 	 * file. For example:
 	 *
-	 * <object data="flash/filmato.swf?scrollspeed=5" type="application/x-shockwave-flash" 
+	 * <object data="feedscrollreader.swf?scrollspeed=5" type="application/x-shockwave-flash" 
 	 * height="200" width="200"></object>
 	 *
-	 * <object data="flash/filmato.swf" type="application/x-shockwave-flash" height="200" width="200">
+	 * <object data="feedscrollreader.swf" type="application/x-shockwave-flash" height="200" width="200">
 	 * 		<param value="scrollspeed=5" name="flashvars" />
 	 * </object>
 	 *
@@ -54,7 +54,7 @@
 		// _______________________________________________________________ STATIC
 
 		static public const NAME				:String			= "Feed Scroll Reader";
-		static public const VERSION				:String 		= "0.2";
+		static public const VERSION				:String 		= "0.3";
 		static public const AUTHOR				:String 		= "Giovambattista Fazioli <g.fazioli@saidmade.com>";
 
 		// _______________________________________________________________ INTERNAL

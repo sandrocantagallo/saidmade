@@ -54,7 +54,7 @@
 		// _______________________________________________________________ STATIC
 
 		static public const NAME				:String			= "Feed Scroll Reader";
-		static public const VERSION				:String 		= "0.3";
+		static public const VERSION				:String 		= "0.4";
 		static public const AUTHOR				:String 		= "Giovambattista Fazioli <g.fazioli@saidmade.com>";
 
 		// _______________________________________________________________ INTERNAL
@@ -87,6 +87,40 @@
 			stage.align			= StageAlign.TOP_LEFT;			// align to top left
 			
 			/**
+			 * Set context menu
+			 */
+			var cm:ContextMenu = new ContextMenu();
+			cm.hideBuiltInItems ();
+			//
+			var refre:ContextMenuItem = new ContextMenuItem("Refresh Feed", false, true);
+			var devby:ContextMenuItem = new ContextMenuItem("Developed by Saidmade Srl - Ver. " + VERSION, true, true);
+			var ginfo:ContextMenuItem = new ContextMenuItem("More Plugins...", false, true);
+			// init context menu events
+			refre.addEventListener( ContextMenuEvent.MENU_ITEM_SELECT,
+				function(e:ContextMenuEvent):void {
+					_timer.stop();
+					removeChild( _scrollText );
+					loadFeed();
+				}
+			);
+			devby.addEventListener( ContextMenuEvent.MENU_ITEM_SELECT,
+				function(e:ContextMenuEvent):void {
+					var rq:URLRequest = new URLRequest("http://www.saidmade.com");
+					navigateToURL (rq, "_blank");
+				}
+			);
+			ginfo.addEventListener( ContextMenuEvent.MENU_ITEM_SELECT,
+				function(e:ContextMenuEvent):void {
+					var rq:URLRequest = new URLRequest("http://labs.saidmade.com/");
+					navigateToURL (rq, "_blank");
+				}
+			);
+			//
+			cm.customItems = [refre, devby,  ginfo];
+			this.contextMenu = cm;
+			 
+			
+			/**
 			 * Default options for Feed Scroll Reader
 			 */
 			_params				= loaderInfo.parameters;
@@ -115,6 +149,7 @@
 		 * @private
 		 */
 		private function loadFeed():void {
+			loader_anim.visible = true;
 			_loader = new URLLoader( new URLRequest( ( (_params.usegateway=='')?_params.feedurl:_params.usegateway ) ) );
 			_loader.addEventListener(Event.COMPLETE, 
 				function ( e:Event ):void {
@@ -172,6 +207,7 @@
 			
 			addChild( _scrollText );								// add text
 			_timer.start();											// start scroll
+			loader_anim.visible = false;
 		}
 		
 		/**

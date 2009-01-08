@@ -33,6 +33,9 @@
 	 * If you wish to use Feed Scroll Reader for commercial purposes, licensing information
 	 * can be found at http://www.saidmade.com
 	 *
+	 * CHANGELOG
+	 *	0.5			Add removeEventListener() and change loading sequence
+	 *
 	 * @author		Giovambattista Fazioli
 	 * @email		g.fazioli@saidmade.com
 	 * @web			http://www.saidmade.com
@@ -54,7 +57,7 @@
 		// _______________________________________________________________ STATIC
 
 		static public const NAME				:String			= "Feed Scroll Reader";
-		static public const VERSION				:String 		= "0.4";
+		static public const VERSION				:String 		= "0.5";
 		static public const AUTHOR				:String 		= "Giovambattista Fazioli <g.fazioli@saidmade.com>";
 
 		// _______________________________________________________________ INTERNAL
@@ -83,6 +86,8 @@
 		 * @private
 		 */
 		private function main(e:Event = null):void {
+			removeEventListener( Event.ADDED_TO_STAGE, main );
+			//
 			stage.scaleMode 	= StageScaleMode.NO_SCALE;		// no-size
 			stage.align			= StageAlign.TOP_LEFT;			// align to top left
 			

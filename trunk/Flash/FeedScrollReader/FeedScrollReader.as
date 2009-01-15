@@ -10,7 +10,7 @@
 	 * height="200" width="200"></object>
 	 *
 	 * <object data="feedscrollreader.swf" type="application/x-shockwave-flash" height="200" width="200">
-	 * 		<param value="scrollspeed=5" name="flashvars" />
+	 * 		<param value="5" name="scrollspeed" />
 	 * </object>
 	 *
 	 * @param	(boolean)	description	True for showing description feed too. [default=false]

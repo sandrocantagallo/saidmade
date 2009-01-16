@@ -13,7 +13,7 @@ oPlayer is a free open source Flash FLV Player. oPlayer can be customize for you
 
 oPlayer read a XML file with the video title and url. Each video list is into a GROUP tag.
 
-== Playlist sample ==
+*Playlist sample*
 {{{
 <?xml version="1.0"?>
 <playlist>
@@ -28,3 +28,21 @@ oPlayer read a XML file with the video title and url. Each video list is into a 
     </group>
 </playlist>
 }}}
+
+= Installation =
+
+Copy oPlayer.swf and playlist.xml in your folder. Use `OBJECT/EMBED` code or library like SWFObject for insert oPlayer in your web page.
+
+*`OBJECT/EMBED` sample code*
+{{{
+<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,0,0" width="480" height="360" id="oPlayer" align="middle">
+<param name="allowScriptAccess" value="sameDomain" />
+<param name="allowFullScreen" value="false" />
+<param name="movie" value="oPlayer.swf?playlist=myplaylist.xml&autoplay=true" />
+<param name="menu" value="false" />
+<param name="quality" value="high" />
+<param name="bgcolor" value="#ffffff" />
+<embed src="oPlayer.swf?playlist=myplaylist.xml&autoplay=true" menu="false" quality="high" bgcolor="#ffffff" width="480" height="360" name="oPlayer" align="middle" allowScriptAccess="sameDomain" allowFullScreen="false" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" />
+</object>
+}}}
+

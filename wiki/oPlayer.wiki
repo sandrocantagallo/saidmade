@@ -6,12 +6,14 @@
 
 = Introduction =
 
-oPlayer is a free open source Flash FLV Player. oPlayer can be customize for your required in param `OBJECT` or in `MIME` get.
+oPlayer is a free open source Flash FLV Player. oPlayer can be customize for your required in param `<OBJECT>` or in `MIME` type on swf url (see below for detail).
+oPlayer works in any resolution.
 
 
 = How works =
 
-oPlayer read a XML file with the video title and url. Each video list is into a GROUP tag.
+oPlayer read a XML file with the video title and url. 	
+Each list of videos is grouped in `<GROUP>` tag.
 
 *Playlist sample*
 {{{
@@ -31,7 +33,7 @@ oPlayer read a XML file with the video title and url. Each video list is into a 
 
 = Installation =
 
-Copy oPlayer.swf and playlist.xml in your folder. Use `OBJECT/EMBED` code or library like SWFObject for insert oPlayer in your web page.
+Copy *oPlayer.swf* and *playlist.xml* in your folder. You can rename *playlist.xml* file as you like. Use `OBJECT/EMBED` code or library like [http://code.google.com/p/swfobject/ SWFObject] for insert oPlayer in your web page.
 
 *`OBJECT/EMBED` sample code*
 {{{
@@ -46,3 +48,18 @@ Copy oPlayer.swf and playlist.xml in your folder. Use `OBJECT/EMBED` code or lib
 </object>
 }}}
 
+*SWFObject sample*
+{{{
+<!-- google.load() -->
+<script type="text/javascript" src="http://www.google.com/jsapi"></script>
+<script type="text/javascript">
+	google.load("swfobject", "2.1");
+	google.setOnLoadCallback(function() {
+		swfobject.embedSWF("oPlayer.swf", "myvideo", "800", "600", "9.0.0");
+	});
+</script>
+
+...
+
+<div id="myvideo"></div>
+}}}

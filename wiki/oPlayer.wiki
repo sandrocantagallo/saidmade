@@ -14,7 +14,8 @@ oPlayer is a free open source Flash FLV Player. oPlayer can be customize for you
 oPlayer read a XML file with the video title and url. Each video list is into a GROUP tag.
 
 == Playlist sample ==
-`<?xml version="1.0"?>
+{{{
+<?xml version="1.0"?>
 <playlist>
     <group title="Group title">
         <video title="Test video" url="http://www.marenectaris.net/J3mnb78anda/acqua_test.flv" thumbnail="" />
@@ -25,4 +26,5 @@ oPlayer read a XML file with the video title and url. Each video list is into a 
         <video title="Star Trek" url="http://www.helpexamples.com/flash/video/typing_short.flv" thumbnail="" />
         <video title="Star Wars" url="http://www.helpexamples.com/flash/video/cuepoints.flv" thumbnails="" />
     </group>
-</playlist>`
+</playlist>
+}}}

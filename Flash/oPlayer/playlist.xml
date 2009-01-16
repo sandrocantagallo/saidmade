@@ -1,0 +1,16 @@
+﻿<?xml version="1.0"?>
+<playlist>
+	<group title="Parte 1">
+    	<video title="Test video" url="http://www.marenectaris.net/J3mnb78anda/acqua_test.flv" thumbnail="" />
+    	<video title="Trailer" url="http://www.marenectaris.net/J3mnb78anda/trailer.flv" thumbnails="" />
+    </group>
+    <group title="Parte 2">	
+	    <video title="Titolo 3" url="http://www.helpexamples.com/flash/video/sheep.flv" thumbnails="" />
+	    <video title="Titolo 4" url="http://www.helpexamples.com/flash/video/typing_short.flv" thumbnail="" />
+	    <video title="Titolo 5" url="http://www.helpexamples.com/flash/video/cuepoints.flv" thumbnails="" />
+	    <video title="Titolo 6" url="http://www.helpexamples.com/flash/video/sheep.flv" thumbnails="" />
+	    <video title="Titolo 7" url="http://www.helpexamples.com/flash/video/typing_short.flv" thumbnail="" />
+	    <video title="Titolo 8" url="http://www.helpexamples.com/flash/video/cuepoints.flv" thumbnails="" />
+	    <video title="Titolo 9" url="http://www.helpexamples.com/flash/video/sheep.flv" thumbnails="" />
+    </group>
+ </playlist>

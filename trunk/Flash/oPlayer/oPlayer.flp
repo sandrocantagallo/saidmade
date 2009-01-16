@@ -1,0 +1,9 @@
+﻿<flash_project name="oPlayer" version="1">
+    <project_folder name="com" expanded="true">
+        <project_file path="./com/oPlayer.as" filetype="as" />
+        <project_file path="./com/VideoControl.as" filetype="as" />
+        <project_file path="./com/VideoControlEvent.as" filetype="as" />
+    </project_folder>
+    <project_file path="./oPlayer.fla" filetype="fla" profile="" def_file="true" />
+    <project_file path="./playlist.xml" filetype="xml" />
+</flash_project>

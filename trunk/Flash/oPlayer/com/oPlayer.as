@@ -48,8 +48,8 @@
 	import flash.text.*;
 	import flash.system.System;
 	import flash.ui.ContextMenu;
-    import flash.ui.ContextMenuItem;
-    import flash.ui.ContextMenuBuiltInItems;
+	import flash.ui.ContextMenuItem;
+	import flash.ui.ContextMenuBuiltInItems;
 	import flash.utils.Timer;
 	import flash.net.*;		
 	

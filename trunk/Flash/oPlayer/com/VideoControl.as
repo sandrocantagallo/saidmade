@@ -335,8 +335,8 @@
 			_playlist_mc.graphics.beginFill(0x111111);
 			_playlist_mc.graphics.drawRoundRect(0, 0, PLAYLIST_WIDTH, dbb+((PLAYLIST_ITEM_HEIGHT + PLAYLIST_ITEM_GAP) * PLAYLIST_ITEM_VISIBLE), PLAYLIST_BORDER_RADIUS, PLAYLIST_BORDER_RADIUS);
 			_playlist_mc.graphics.endFill();
-			_playlist_mc.x 			= Math.round( (stage.stageWidth - PLAYLIST_WIDTH)/2 );
-			_playlist_mc.y			= Math.round( stage.stageHeight - (PLAYLIST_BORDER<<1) - PLAYLIST_TOOLBAR_GAP - TOOLBAR_HEIGHT - (PLAYLIST_ITEM_HEIGHT + PLAYLIST_ITEM_GAP) * PLAYLIST_ITEM_VISIBLE );
+			_playlist_mc.x 			= Math.round( (stage.stageWidth - PLAYLIST_WIDTH) >> 1 );
+			_playlist_mc.y			= Math.round( stage.stageHeight - (PLAYLIST_BORDER << 1) - PLAYLIST_TOOLBAR_GAP - TOOLBAR_HEIGHT - (PLAYLIST_ITEM_HEIGHT + PLAYLIST_ITEM_GAP) * PLAYLIST_ITEM_VISIBLE );
 			
 			addChild( _playlist_mc );
 			
@@ -355,13 +355,13 @@
 			var posy		:uint	= 0;
 			for each( var g:XML in _playlist ) {
 				var t_mc:MovieClip	= createTitle( g.@title );
-				t_mc.x				= ( PLAYLIST_WIDTH - PLAYLIST_ITEM_WIDTH - PLAYLIST_SCROLL_WIDTH )/2;
+				t_mc.x				= ( PLAYLIST_WIDTH - PLAYLIST_ITEM_WIDTH - PLAYLIST_SCROLL_WIDTH ) >> 1;
 				t_mc.y 				= PLAYLIST_BORDER+(posy * (PLAYLIST_ITEM_HEIGHT + PLAYLIST_ITEM_GAP));
 				sc.addChild( t_mc );
 				posy++;
 				for each( var v:XML in g.video ) {
 					var i_mc:MovieClip	= createItem( v.@title, v.@url );
-					i_mc.x 				= ( PLAYLIST_WIDTH - PLAYLIST_ITEM_WIDTH - PLAYLIST_SCROLL_WIDTH)/2;
+					i_mc.x 				= ( PLAYLIST_WIDTH - PLAYLIST_ITEM_WIDTH - PLAYLIST_SCROLL_WIDTH) >> 1 ;
 					i_mc.y 				= PLAYLIST_BORDER+(posy * (PLAYLIST_ITEM_HEIGHT + PLAYLIST_ITEM_GAP));
 					posy++;
 					// set some custom properties
@@ -385,7 +385,7 @@
 			mask_mc.graphics.beginFill(0xff0000);
 			mask_mc.graphics.drawRoundRect(0, 0, PLAYLIST_ITEM_WIDTH, ((PLAYLIST_ITEM_HEIGHT + PLAYLIST_ITEM_GAP) * PLAYLIST_ITEM_VISIBLE), 14, 14);
 			mask_mc.graphics.endFill();
-			mask_mc.x = ( PLAYLIST_WIDTH - PLAYLIST_ITEM_WIDTH - PLAYLIST_SCROLL_WIDTH )/2; //_playlist_mc.x;
+			mask_mc.x = ( PLAYLIST_WIDTH - PLAYLIST_ITEM_WIDTH - PLAYLIST_SCROLL_WIDTH ) >> 1;
 			mask_mc.y = PLAYLIST_BORDER;
 			_playlist_mc.addChild( mask_mc );
 			

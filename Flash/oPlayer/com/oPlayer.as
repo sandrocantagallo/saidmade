@@ -39,6 +39,7 @@
 	 * @rel			http://www.undolog.com
 	 *
 	 * CHANGELOG
+	 *	0.5.1		First clean code + optimization
 	 *	0.5b		First beta 1 release with minimal interface
 	 *
 	 */	
@@ -57,7 +58,7 @@
 		// _______________________________________________________________ STATIC
 
 		static public const NAME				:String			= "oPlayer";
-		static public const VERSION				:String 		= "0.5b";
+		static public const VERSION				:String 		= "0.5.1";
 		static public const AUTHOR				:String 		= "Giovambattista Fazioli <g.fazioli@saidmade.com>";
 		
 		private const PLAYHEAD_UPDATE_INTERVAL	:uint 			= 10;
@@ -100,8 +101,8 @@
 			var orate:Number	= logo.width/logo.height;
 			logo.width			= stage.stageWidth*(1-0.2);
 			logo.height			= logo.width/orate;
-			logo.x				= (stage.stageWidth-logo.width)/2;
-			logo.y				= (stage.stageHeight-logo.height)/2;
+			logo.x				= (stage.stageWidth-logo.width) >> 1;
+			logo.y				= (stage.stageHeight-logo.height) >> 1;
 			trace(logo.x, logo.y);
 			//
 			initMask();
@@ -150,7 +151,7 @@
 			/**
 			 * Autoplay
 			 */
-			if( _params.autoplay ) {
+			if( Boolean( _params.autoplay ) ) {
 				_videoControl.toolbar = false;
 				playVideoIndex(0);
 			}
@@ -215,8 +216,8 @@
 			/**
 			 * set default params
 			 */
-			_params.playlist 	= _params.playlist || 'playlist.xml';
-			_params.autoplay 	= _params.autoplay || false;
+			_params.playlist 	= ( _params.playlist == undefined)?'playlist.xml':_params.playlist;
+			_params.autoplay 	= ( _params.autoplay == undefined )?false:(_params.autoplay == 'true');
 		}
 		
 		/**
@@ -295,7 +296,7 @@
 		 */
 		private function playNextVideo( e:ContextMenuEvent = null ):void {
 			var _index:uint	= _videoControl.videoIndex;
-			if( ++_index > (_videoControl.listVideos.length-1) ) _index = 0;
+			if( ++_index > (_videoControl.listVideos.length - 1) ) _index = 0;
 			playVideoIndex( _index );	
 		}
 		
@@ -456,6 +457,5 @@
 				// Ignore this error.
 			}
 		}
-		
 	}
 }

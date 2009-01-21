@@ -55,7 +55,11 @@ Copy *oPlayer.swf* and *playlist.xml* in your folder. You can rename *playlist.x
 <script type="text/javascript">
 	google.load("swfobject", "2.1");
 	google.setOnLoadCallback(function() {
-		swfobject.embedSWF("oPlayer.swf", "myvideo", "800", "600", "9.0.0");
+		var flashvars	= { autoplay: 'true', playlist: 'myplaylist.xml' };
+		var params		= {};
+		var attributes	= {};
+
+		swfobject.embedSWF("oPlayer.swf", "myvideo", "800", "600", "9.0.0", '', flashvars, params, attributes);
 	});
 </script>
 

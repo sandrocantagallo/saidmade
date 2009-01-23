@@ -39,6 +39,7 @@
 	 * @rel			http://www.undolog.com
 	 *
 	 * CHANGELOG
+	*	0.5.2		Add bufferTime to NetStreaming object (default 5 seconds)
 	 *	0.5.1		First clean code + optimization
 	 *	0.5b		First beta 1 release with minimal interface
 	 *
@@ -62,6 +63,7 @@
 		static public const AUTHOR				:String 		= "Giovambattista Fazioli <g.fazioli@saidmade.com>";
 		
 		private const PLAYHEAD_UPDATE_INTERVAL	:uint 			= 10;
+		private const BUFFER_TIME				:uint 			= 5;
 		
 		// _______________________________________________________________ INTERNAL
 		
@@ -196,6 +198,7 @@
 			_ns 				= new NetStream( _nc );
 			_ns.addEventListener( NetStatusEvent.NET_STATUS, netStatusHandler );
 			_ns.client 			= _client;
+			_ns.bufferTime		= BUFFER_TIME;
 			//
 			i_video.attachNetStream( _ns );
 			

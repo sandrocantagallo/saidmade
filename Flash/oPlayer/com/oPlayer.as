@@ -39,7 +39,8 @@
 	 * @rel			http://www.undolog.com
 	 *
 	 * CHANGELOG
-	*	0.5.2		Add bufferTime to NetStreaming object (default 5 seconds)
+	 *	0.5.3		Fix press play to start first video on playlist
+	 *	0.5.2		Add bufferTime to NetStreaming object (default 5 seconds)
 	 *	0.5.1		First clean code + optimization
 	 *	0.5b		First beta 1 release with minimal interface
 	 *
@@ -54,12 +55,15 @@
 	import flash.ui.ContextMenuBuiltInItems;
 	import flash.utils.Timer;
 	import flash.net.*;		
+
+	import fl.transitions.*;
+	import fl.transitions.easing.*;
 	
 	public class oPlayer extends MovieClip {
 		// _______________________________________________________________ STATIC
 
 		static public const NAME				:String			= "oPlayer";
-		static public const VERSION				:String 		= "0.5.1";
+		static public const VERSION				:String 		= "0.5.3";
 		static public const AUTHOR				:String 		= "Giovambattista Fazioli <g.fazioli@saidmade.com>";
 		
 		private const PLAYHEAD_UPDATE_INTERVAL	:uint 			= 10;
@@ -80,6 +84,9 @@
 		
 		private var _t							:Timer;
 		private var _meta						:Object;
+
+		private var	_noplayvideo				:Boolean		= true;	// flag for play first video on play press
+		private var _logo						:Logo;
 				
 		// _______________________________________________________________ CONSTRUCTOR
 		
@@ -100,23 +107,17 @@
 			stage.scaleMode 	= StageScaleMode.NO_SCALE;				// no-size
 			stage.align			= StageAlign.TOP_LEFT;					// align to top left
 			//
-			var orate:Number	= logo.width/logo.height;
-			logo.width			= stage.stageWidth*(1-0.2);
-			logo.height			= logo.width/orate;
-			logo.x				= (stage.stageWidth-logo.width) >> 1;
-			logo.y				= (stage.stageHeight-logo.height) >> 1;
-			trace(logo.x, logo.y);
-			//
 			initMask();
 			initParams();												// init default params
 			initVideo();												// init net connection and streaming
 			loadPlaylist();												// loading playlist
+			initLogo();
 		}
 		
 		// _______________________________________________________________ INIT FUNCTION
 		
 		/**
-		 * Create a Mask for contect Menu Event
+		 * Create a Mask for content Menu Event
 		 */
 		private function initMask():void {
 			var mk:Sprite	= new Sprite();
@@ -157,6 +158,32 @@
 				_videoControl.toolbar = false;
 				playVideoIndex(0);
 			}
+		}
+		
+		/**
+		 * Init and show Logo
+		 */
+		private function initLogo():void {
+			_logo				= new Logo();
+			var orate:Number	= _logo.width/_logo.height;
+			_logo.width			= stage.stageWidth*(0.8);
+			_logo.height		= _logo.width/orate;
+			_logo.x				= (stage.stageWidth-_logo.width) >> 1;
+			_logo.y				= (stage.stageHeight-_logo.height) >> 1;
+			//
+			_logo.buttonMode = _logo.useHandCursor = true; 
+			_logo.addEventListener( MouseEvent.CLICK,
+				function( e:MouseEvent ):void {
+					var tw:Tween = new Tween(e.currentTarget, 'alpha', Strong.easeOut, e.currentTarget.alpha, 0, 1, true);
+					tw.addEventListener( TweenEvent.MOTION_FINISH,
+						function( e:TweenEvent ):void {
+							_videoControl.toolbar = false;
+							playVideoIndex( 0 );
+						}
+					);
+				}
+			);
+			addChild( _logo );
 		}
 		
 		/**
@@ -250,7 +277,10 @@
 				function(e:ContextMenuEvent):void {
 					if( _videoControl.state == 'play') {
 						contextMenu.customItems[0].caption = "Pause Video";
-						_ns.resume();
+						if( _noplayvideo ) {
+							_videoControl.toolbar = _noplayvideo = false;
+							playVideoIndex( 0 );
+						} else _ns.resume();
 						_videoControl.state = 'pause';
 					} else {
 						contextMenu.customItems[0].caption = "Play Video";
@@ -300,7 +330,8 @@
 		private function playNextVideo( e:ContextMenuEvent = null ):void {
 			var _index:uint	= _videoControl.videoIndex;
 			if( ++_index > (_videoControl.listVideos.length - 1) ) _index = 0;
-			playVideoIndex( _index );	
+			playVideoIndex( _index );
+			contextMenu.customItems[0].caption = "Pause Video";
 		}
 		
 		
@@ -364,8 +395,13 @@
 		private function onToolbarHandler( e:VideoControlEvent ):void {
 			switch( e.type ) {
 				case VideoControlEvent.PLAY_VIDEO:
-					_t.start();
-					_ns.resume();
+					if( _noplayvideo ) {
+						_videoControl.toolbar = _noplayvideo = false;
+						playVideoIndex( 0 );
+					} else {
+						_t.start();
+						_ns.resume();
+					}
 					_videoControl.state="pause";
 					contextMenu.customItems[0].caption = "Pause Video"
 					break;

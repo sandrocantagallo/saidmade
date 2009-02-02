@@ -34,7 +34,10 @@
 	 * can be found at http://www.saidmade.com
 	 *
 	 * CHANGELOG
-	 *	0.5			Add removeEventListener() and change loading sequence
+	 * + 0.6.4			Improve scrolling engine
+	 * + 0.6.1			Rev comment code
+	 * + 0.6			Rewrite _params settings	
+	 * + 0.5			Add removeEventListener() and change loading sequence
 	 *
 	 * @author		Giovambattista Fazioli
 	 * @email		g.fazioli@saidmade.com
@@ -57,11 +60,11 @@
 		// _______________________________________________________________ STATIC
 
 		static public const NAME				:String			= "Feed Scroll Reader";
-		static public const VERSION				:String 		= "0.5";
+		static public const VERSION				:String 		= "0.6.4";
 		static public const AUTHOR				:String 		= "Giovambattista Fazioli <g.fazioli@saidmade.com>";
 
 		// _______________________________________________________________ INTERNAL
-		private var _scrollText					:TextField;
+		private var _scrollText					:TextField;					// TextField for html text
 		private var _style						:StyleSheet;
 		private var _loader						:URLLoader;
 		private var _pause						:Boolean		= false;
@@ -70,13 +73,15 @@
 		private var _rssXML						:XML;
 		private var _output						:String			= '';
 		
+		private var _items						:Array;						// MovieClip Array
+		private var _mcContainer				:MovieClip;
+		
 		/**
 		 * Feed Scroll Reader constructor
 		 *
 		 * @internal
 		 */
 		function FeedScrollReader() {
-			trace( 'FeedScrollReader::constructor' );
 			addEventListener( Event.ADDED_TO_STAGE, main );
 		}
 		
@@ -104,7 +109,7 @@
 			refre.addEventListener( ContextMenuEvent.MENU_ITEM_SELECT,
 				function(e:ContextMenuEvent):void {
 					_timer.stop();
-					removeChild( _scrollText );
+					removeChild( _mcContainer );
 					loadFeed();
 				}
 			);
@@ -130,15 +135,14 @@
 			 */
 			_params				= loaderInfo.parameters;
 			
-			if( _params.feedurl == undefined) _params = { scrollspeed	: 15,
-														 stylesheet		: 'style.css',
-														 separator		: ' * ',
-														 description	: '0',
-														 stringcut		: '50',
-														 feedurl		: 'http://www.undolog.com/feed',
-														 usegateway		: ''
-														};
-														
+			_params.scrollspeed	= Number( ( _params.scrollspeed == undefined ) ? 25 : _params.scrollspeed );
+			_params.stylesheet	= ( _params.stylesheet == undefined ) ? 'style.css' : _params.stylesheet;
+			_params.separator	= ( _params.separator == undefined ) ? ' * ' : _params.separator;
+			_params.description	= ( _params.description == undefined ) ? '1' : _params.description;
+			_params.stringcut	= ( _params.stringcut == undefined ) ? '50' : _params.stringcut;
+			_params.feedurl		= ( _params.feedurl == undefined ) ? 'http://www.undolog.com/feed' : _params.feedurl;
+			_params.usegateway	= ( _params.usegateway == undefined ) ? '' : _params.usegateway;
+																
 			/**
 			 * Set the Timer for scroll
 			 */
@@ -195,7 +199,6 @@
 		 */
 		private function initScroll():void {
 			_scrollText			= new TextField();
-			_scrollText.x		= stage.stageWidth;
 			//
 			_scrollText.htmlText 		= '';						// empty string
 			_scrollText.cacheAsBitmap	= true;						// cache like bitmap
@@ -204,13 +207,19 @@
 			_scrollText.wordWrap		= false;					// no word wrap
 			_scrollText.htmlText 		= _output;					// feed
 			
+			_mcContainer		= new MovieClip();
+			_mcContainer.x		= stage.stageWidth;
+			_mcContainer.cacheAsBitmap = true;
+			
 			/**
 			 * Set Event for Mouse roll over and roll out stop scrolling
 			 */
 			addEventListener( MouseEvent.ROLL_OVER, function(e:MouseEvent) { _pause = true; } );
 			addEventListener( MouseEvent.ROLL_OUT, function(e:MouseEvent) { _pause = false; } );
 			
-			addChild( _scrollText );								// add text
+			addChild( _mcContainer );
+			_mcContainer.addChild( _scrollText );					// add text
+			//
 			_timer.start();											// start scroll
 			loader_anim.visible = false;
 		}
@@ -222,9 +231,10 @@
 		 */
 		private function scrolling(e:TimerEvent):void {
 			if( !_pause) {
-				_scrollText.x--;
-				if( _scrollText.x < -_scrollText.width ) _scrollText.x = stage.stageWidth;
+				_mcContainer.x-=1;
+				if( _mcContainer.x < -_mcContainer.width ) _mcContainer.x = stage.stageWidth;
 			}
+			e.updateAfterEvent();
 		}
 		
 		/* _______________________________________________________________ DEBUG

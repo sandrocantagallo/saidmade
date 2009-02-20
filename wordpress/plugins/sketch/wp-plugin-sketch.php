@@ -83,7 +83,7 @@ function wpp_options_page() {
 /**
  * Draw Options Panel
  */
-function ffsr_options_subpanel() {
+function wpp_options_subpanel() {
 	global $wpp_options, $_POST;
 
 	$any_error = "";										// any error flag
@@ -124,7 +124,7 @@ function ffsr_options_subpanel() {
 add_action('admin_menu', 	'wpp_options_page');
 
 /**
- * Some add-action for example
+ * Some add_action(), add_filter() for example
  *
  * add_action("wp_head", 		'wpp_header');
  */

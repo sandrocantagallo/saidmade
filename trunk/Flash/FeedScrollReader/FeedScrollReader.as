@@ -153,7 +153,7 @@
 			_params.stringcut	= ( _params.stringcut == undefined ) ? '50' : _params.stringcut;
 			_params.feedurl		= ( _params.feedurl == undefined ) ? 'http://www.undolog.com/feed' : _params.feedurl;
 			_params.usegateway	= ( _params.usegateway == undefined ) ? '' : _params.usegateway;
-			_params.bgcolor		= ( _params.bgcolor == undefined ) ? 0xffffff : _params.bgcolor;
+			_params.bgcolor		= ( _params.bgcolor == undefined ) ? 0xffffff : parseInt(_params.bgcolor);
 			
 			loadFeed();				// load feed
 

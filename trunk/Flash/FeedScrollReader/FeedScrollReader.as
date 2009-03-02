@@ -35,6 +35,7 @@
 	 * can be found at http://www.saidmade.com
 	 *
 	 * CHANGELOG
+	 * + 0.7.1			Minor bugs fix on sync refresh
 	 * + 0.7.0			Improve Scrolling text with Undolibrary Scroll class and Add bgcolor param
 	 * + 0.6.4			Improve scrolling engine
 	 * + 0.6.1			Rev comment code
@@ -64,7 +65,7 @@
 		// _________________________________________________________________________________________________________ STATIC
 
 		static public const NAME				:String			= "Feed Scroll Reader";
-		static public const VERSION				:String 		= "0.7.0";
+		static public const VERSION				:String 		= "0.7.1";
 		static public const AUTHOR				:String 		= "Giovambattista Fazioli <g.fazioli@saidmade.com>";
 
 		// _________________________________________________________________________________________________________ INTERNAL
@@ -151,7 +152,7 @@
 			_params.separator	= ( _params.separator == undefined ) ? ' * ' : _params.separator;
 			_params.description	= ( _params.description == undefined ) ? '0' : _params.description;
 			_params.stringcut	= ( _params.stringcut == undefined ) ? '50' : _params.stringcut;
-			_params.feedurl		= ( _params.feedurl == undefined ) ? 'http://www.undolog.com/feed' : _params.feedurl;
+			_params.feedurl		= ( _params.feedurl == undefined ) ? 'http://labs.saidmade.com/feed' : _params.feedurl;
 			_params.usegateway	= ( _params.usegateway == undefined ) ? '' : _params.usegateway;
 			_params.bgcolor		= ( _params.bgcolor == undefined ) ? 0xffffff : parseInt(_params.bgcolor);
 			

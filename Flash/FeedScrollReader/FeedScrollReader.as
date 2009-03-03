@@ -36,6 +36,7 @@
 	 *
 	 * CHANGELOG
 	 *
+	 * + 0.7.3			Minor bug fix on scrollspeed
 	 * + 0.7.2			Add Saidmade banner to end of scroll
 	 * + 0.7.1			Minor bugs fix on sync refresh
 	 * + 0.7.0			Improve Scrolling text with Undolibrary Scroll class and Add bgcolor param
@@ -67,7 +68,7 @@
 		// _________________________________________________________________________________________________________ STATIC
 
 		static public const NAME				:String			= "Feed Scroll Reader";
-		static public const VERSION				:String 		= "0.7.2";
+		static public const VERSION				:String 		= "0.7.3";
 		static public const AUTHOR				:String 		= "Giovambattista Fazioli <g.fazioli@saidmade.com>";
 
 		// _________________________________________________________________________________________________________ INTERNAL
@@ -216,7 +217,7 @@
 			_scroll						= new Scroll( stage.stageWidth, stage.stageHeight );
 			_scroll.name				= 'scroll_object';
 			
-			_scroll.speed				= 5; //_params.scrollspeed;
+			_scroll.speed				= _params.scrollspeed;
 			_scroll.borderInWidth 		= 32;	
 			_scroll.borderOutWidth 		= 32;
 			_scroll.borderInColor 		= _params.bgcolor;

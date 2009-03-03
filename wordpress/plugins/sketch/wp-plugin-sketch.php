@@ -38,11 +38,13 @@ Disclaimer: Use at your own risk. No warranty expressed or implied is provided.
  *
  * All constant are defined here
  */
-define( 'PLUGINNAME',	'[[PLUGIN NAME]]' );
-define( 'OPTIONSKEY',	'[[KEY OPTIONS]]' );
-define( 'OPTIONSTITLE',	'[[OPTIONS TITLE]]' );
-define( 'VERSION',		'[[VERSION]]' );
+define( '[[prefix]]PLUGINNAME',	'[[PLUGIN NAME]]' );
+define( '[[prefix]]OPTIONSKEY',	'[[KEY OPTIONS]]' );
+define( '[[prefix]]OPTIONSTITLE',	'[[OPTIONS TITLE]]' );
+define( '[[prefix]]VERSION',		'[[VERSION]]' );
 
+define( '[[prefix]]_CONTENT_URL', 	get_option('siteurl') . '/wp-content' );
+define( '[[prefix]]_PLUGINS_PATH',	[[prefix]]_CONTENT_URL . '/plugins/' . plugin_basename(dirname(__FILE__)) . '/' );
 
 /**
  * INIT OPTIONS
@@ -58,12 +60,12 @@ $wpp_options = array(
 /**
  * Add to Wordpress options database
  */
-add_option( OPTIONSKEY, $wpp_options, OPTIONSTITLE );
+add_option( [[prefix]]OPTIONSKEY, $wpp_options, [[prefix]]OPTIONSTITLE );
 
 /**
  * re-Load options
  */
-$wpp_options = get_option( OPTIONSKEY );
+$wpp_options = get_option( [[prefix]]OPTIONSKEY );
 
 
 // ________________________________________________________________________________________ OPTIONS
@@ -76,7 +78,7 @@ $wpp_options = get_option( OPTIONSKEY );
  */
 function wpp_options_page() {
 	if ( function_exists('add_options_page') ) {
- 		add_options_page( OPTIONSTITLE, OPTIONSTITLE, 8, basename(__FILE__), 'wpp_options_subpanel');
+ 		add_options_page( [[prefix]]OPTIONSTITLE, [[prefix]]OPTIONSTITLE, 8, basename(__FILE__), 'wpp_options_subpanel');
 	}
 }
 
@@ -99,7 +101,7 @@ function wpp_options_subpanel() {
 		} else {
 			$wpp_options['opt1'] 	= $_POST['test'];
 			
-			update_option( OPTIONSKEY, $wpp_options);
+			update_option( [[prefix]]OPTIONSKEY, $wpp_options);
 		}
 	}
 	

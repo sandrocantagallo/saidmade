@@ -35,6 +35,8 @@
 	 * can be found at http://www.saidmade.com
 	 *
 	 * CHANGELOG
+	 *
+	 * + 0.7.2			Add Saidmade banner to end of scroll
 	 * + 0.7.1			Minor bugs fix on sync refresh
 	 * + 0.7.0			Improve Scrolling text with Undolibrary Scroll class and Add bgcolor param
 	 * + 0.6.4			Improve scrolling engine
@@ -65,7 +67,7 @@
 		// _________________________________________________________________________________________________________ STATIC
 
 		static public const NAME				:String			= "Feed Scroll Reader";
-		static public const VERSION				:String 		= "0.7.1";
+		static public const VERSION				:String 		= "0.7.2";
 		static public const AUTHOR				:String 		= "Giovambattista Fazioli <g.fazioli@saidmade.com>";
 
 		// _________________________________________________________________________________________________________ INTERNAL
@@ -128,14 +130,14 @@
 			);
 			devby.addEventListener( ContextMenuEvent.MENU_ITEM_SELECT,
 				function(e:ContextMenuEvent):void {
-					var rq:URLRequest = new URLRequest("http://www.saidmade.com");
-					navigateToURL (rq, "_blank");
+					navigateToURL ( new URLRequest("http://www.undolog.com"), "_blank");
+					navigateToURL ( new URLRequest("http://www.saidmade.com"), "_blank");
 				}
 			);
+			
 			ginfo.addEventListener( ContextMenuEvent.MENU_ITEM_SELECT,
 				function(e:ContextMenuEvent):void {
-					var rq:URLRequest = new URLRequest("http://labs.saidmade.com/");
-					navigateToURL (rq, "_blank");
+					navigateToURL ( new URLRequest("http://labs.saidmade.com/"), "_blank");
 				}
 			);
 			//
@@ -183,6 +185,7 @@
 						                                  ( (_params.description == '1') ? ' - <p>'+itemDescription+'</p>' : '' );
 						_strings.push( buf );
 					}
+					_strings.push( ' <p>- Developed by</p> ' );
 					loadCSS();
 				}
 			);
@@ -213,12 +216,12 @@
 			_scroll						= new Scroll( stage.stageWidth, stage.stageHeight );
 			_scroll.name				= 'scroll_object';
 			
-			_scroll.speed				= _params.scrollspeed;
+			_scroll.speed				= 5; //_params.scrollspeed;
 			_scroll.borderInWidth 		= 32;	
 			_scroll.borderOutWidth 		= 32;
 			_scroll.borderInColor 		= _params.bgcolor;
 			_scroll.borderOutColor 		= _params.bgcolor;	
-			
+
 			for each( var s in _strings ) {
 				var st:TextField	= new TextField();
 				//
@@ -231,6 +234,10 @@
 				
 				_scroll.addItem( 's', st );
 			}
+			// 0.7.2 - add saidmade logo to the end of scroll
+			var clip:MovieClip = _scroll.addItem( 'saidmade', new LogoSaidmade() );
+			clip.useHandCursor = clip.buttonMode = true;
+			clip.addEventListener( MouseEvent.CLICK, function() { navigateToURL ( new URLRequest("http://www.saidmade.com"), "_blank"); } );
 					
 			/**
 			 * Set Event for Mouse roll over and roll out stop scrolling

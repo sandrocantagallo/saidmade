@@ -1,5 +1,5 @@
 <?php get_header(); ?>
-	<div id="content" class="search-page">
+	<div id="search-page" class="content">
 	<?php if (have_posts()) : ?>
 		<h2 class="pagetitle" title="Risultati della ricerca">Risultati della ricerca</h2>
 

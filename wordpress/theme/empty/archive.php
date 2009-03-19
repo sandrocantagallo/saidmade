@@ -1,5 +1,5 @@
 <?php get_header(); ?>
-	<div id="content" class="archive-page">
+	<div id="archive" class="content">
 
 	<?php if (have_posts()) : ?>
 

@@ -13,7 +13,7 @@
 <!--[if IE 6]> <![endif]-->
 
 <script type="text/javascript" src="http://www.google.com/jsapi"></script>
-<script type="text/javascript">google.load("jquery", "1.2.6");google.load("jqueryui", "1.5.2");</script>
+<script type="text/javascript">google.load("jquery", "1.3");google.load("jqueryui", "1.7");</script>
 <script type="text/javascript">
 	google.setOnLoadCallback( 
 		function() {

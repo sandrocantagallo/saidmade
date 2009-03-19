@@ -1,5 +1,5 @@
 <?php get_header(); ?>
-	<div id="content" class="index-page">
+	<div id="index-page" class="content">
 	<?php if (have_posts()) : ?>
 		<?php while (have_posts()) : the_post(); ?>
 			<div class="post" id="post-<?php the_ID(); ?>">
@@ -25,7 +25,7 @@
 	<?php else : ?>
 
 		<h2 class="center">Non trovato</h2>
-		<p class="center">Spiacenti, ma la pagina che cercavi non è stata trovata. Prova a cercare meglio nel sito</p>
+		<p class="center">Spiacenti, ma la pagina che cercavi non ï¿½ stata trovata. Prova a cercare meglio nel sito</p>
 		<?php include (TEMPLATEPATH . "/searchform.php"); ?>
 
 	<?php endif; ?>

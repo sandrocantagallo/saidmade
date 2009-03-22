@@ -36,6 +36,7 @@
 	 *
 	 * CHANGELOG
 	 *
+	 * + 0.7.5			Add "_blank" and "[...]" properties
 	 * + 0.7.3			Minor bug fix on scrollspeed
 	 * + 0.7.2			Add Saidmade banner to end of scroll
 	 * + 0.7.1			Minor bugs fix on sync refresh
@@ -68,7 +69,7 @@
 		// _________________________________________________________________________________________________________ STATIC
 
 		static public const NAME				:String			= "Feed Scroll Reader";
-		static public const VERSION				:String 		= "0.7.3";
+		static public const VERSION				:String 		= "0.7.5";
 		static public const AUTHOR				:String 		= "Giovambattista Fazioli <g.fazioli@saidmade.com>";
 
 		// _________________________________________________________________________________________________________ INTERNAL
@@ -106,7 +107,7 @@
 					_scroll.height = stage.stageHeight; 
 				} catch(e) {}
 			});
-			//
+			
 			stage.scaleMode 	= StageScaleMode.NO_SCALE;		// no-size
 			stage.align			= StageAlign.TOP_LEFT;			// align to top left
 			
@@ -148,16 +149,18 @@
 			/**
 			 * Default options for Feed Scroll Reader
 			 */
-			_params				= loaderInfo.parameters;
+			_params					= loaderInfo.parameters;
 			
-			_params.scrollspeed	= Number( ( _params.scrollspeed == undefined ) ? 25 : _params.scrollspeed );
-			_params.stylesheet	= ( _params.stylesheet == undefined ) ? 'style.css' : _params.stylesheet;
-			_params.separator	= ( _params.separator == undefined ) ? ' * ' : _params.separator;
-			_params.description	= ( _params.description == undefined ) ? '0' : _params.description;
-			_params.stringcut	= ( _params.stringcut == undefined ) ? '50' : _params.stringcut;
-			_params.feedurl		= ( _params.feedurl == undefined ) ? 'http://labs.saidmade.com/feed' : _params.feedurl;
-			_params.usegateway	= ( _params.usegateway == undefined ) ? '' : _params.usegateway;
-			_params.bgcolor		= ( _params.bgcolor == undefined ) ? 0xffffff : parseInt(_params.bgcolor);
+			_params.scrollspeed		= Number( ( _params.scrollspeed == undefined ) ? 25 : _params.scrollspeed );
+			_params.stylesheet		= ( _params.stylesheet == undefined ) ? 'style.css' : _params.stylesheet;
+			_params.separator		= ( _params.separator == undefined ) ? ' * ' : _params.separator;
+			_params.description		= ( _params.description == undefined ) ? '0' : _params.description;
+			_params.stringcut		= ( _params.stringcut == undefined ) ? '50' : _params.stringcut;
+			_params.stringcutend	= ( _params.stringcutend == undefined ) ? '[...]' : _params.stringcutend;
+			_params.feedurl			= ( _params.feedurl == undefined ) ? 'http://labs.saidmade.com/feed' : _params.feedurl;
+			_params.usegateway		= ( _params.usegateway == undefined ) ? '' : _params.usegateway;
+			_params.bgcolor			= ( _params.bgcolor == undefined ) ? 0xffffff : parseInt(_params.bgcolor);
+			_params.target			= ( _params.target == undefined ) ? "_blank" : _params.target;
 			
 			loadFeed();				// load feed
 
@@ -180,7 +183,7 @@
 					for each (var item:XML in _rssXML..item) {
 						if( _strings.length > 0 ) _strings.push( _params.separator );
 						var itemTitle		:String 	= item.title.toString();
-						var itemDescription	:String 	= item.description.toString().substr(0, uint(_params.stringcut) )+'[...]';
+						var itemDescription	:String 	= item.description.toString().substr(0, uint(_params.stringcut) ) + _params.stringcutend;
 						var itemLink		:String 	= item.link.toString();
 						var buf				:String 	= '<a target="_blank" href="'+itemLink+'">'+itemTitle+'</a>'+
 						                                  ( (_params.description == '1') ? ' - <p>'+itemDescription+'</p>' : '' );
@@ -238,7 +241,7 @@
 			// 0.7.2 - add saidmade logo to the end of scroll
 			var clip:MovieClip = _scroll.addItem( 'saidmade', new LogoSaidmade() );
 			clip.useHandCursor = clip.buttonMode = true;
-			clip.addEventListener( MouseEvent.CLICK, function() { navigateToURL ( new URLRequest("http://www.saidmade.com"), "_blank"); } );
+			clip.addEventListener( MouseEvent.CLICK, function() { navigateToURL ( new URLRequest("http://www.saidmade.com"), _params.target ); } );
 					
 			/**
 			 * Set Event for Mouse roll over and roll out stop scrolling

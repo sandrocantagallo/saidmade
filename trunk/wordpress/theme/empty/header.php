@@ -17,7 +17,7 @@
 <script type="text/javascript">
 	google.setOnLoadCallback( 
 		function() {
-			jQuery('a[@target=_blank]').addClass('external');
+			jQuery('a[target=_blank]').addClass('external');
 		}
 	);
 </script>

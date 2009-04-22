@@ -16,9 +16,6 @@
 
 				<?php wp_link_pages(array('before' => '<p><strong>Pagine: </strong> ', 'after' => '</p>', 'next_or_number' => 'number')); ?>			
 			</div>
-			<div class="relatedposts rborder4 tdborder">
-				<?php st_related_posts("number=5"); ?>
-			</div>
 
 			<?php the_tags( '<p class="postmetadata">Tags: ', ', ', '</p>'); ?>
 		</div>

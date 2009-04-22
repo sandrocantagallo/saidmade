@@ -36,6 +36,7 @@
 	 *
 	 * CHANGELOG
 	 *
+	 * + 0.8.0			Rev HTML format
 	 * + 0.7.5			Add "_blank" and "[...]" properties
 	 * + 0.7.3			Minor bug fix on scrollspeed
 	 * + 0.7.2			Add Saidmade banner to end of scroll
@@ -69,7 +70,7 @@
 		// _________________________________________________________________________________________________________ STATIC
 
 		static public const NAME				:String			= "Feed Scroll Reader";
-		static public const VERSION				:String 		= "0.7.5";
+		static public const VERSION				:String 		= "0.8.0";
 		static public const AUTHOR				:String 		= "Giovambattista Fazioli <g.fazioli@saidmade.com>";
 
 		// _________________________________________________________________________________________________________ INTERNAL
@@ -153,8 +154,8 @@
 			
 			_params.scrollspeed		= Number( ( _params.scrollspeed == undefined ) ? 25 : _params.scrollspeed );
 			_params.stylesheet		= ( _params.stylesheet == undefined ) ? 'style.css' : _params.stylesheet;
-			_params.separator		= ( _params.separator == undefined ) ? ' * ' : _params.separator;
-			_params.description		= ( _params.description == undefined ) ? '0' : _params.description;
+			_params.separator		= ( _params.separator == undefined ) ? '*' : _params.separator;
+			_params.description		= ( _params.description == undefined ) ? '1' : _params.description;
 			_params.stringcut		= ( _params.stringcut == undefined ) ? '50' : _params.stringcut;
 			_params.stringcutend	= ( _params.stringcutend == undefined ) ? '[...]' : _params.stringcutend;
 			_params.feedurl			= ( _params.feedurl == undefined ) ? 'http://labs.saidmade.com/feed' : _params.feedurl;
@@ -181,12 +182,12 @@
 					_rssXML 	= XML( _loader.data );
 					_strings	= [];
 					for each (var item:XML in _rssXML..item) {
-						if( _strings.length > 0 ) _strings.push( _params.separator );
+						if( _strings.length > 0 ) _strings.push( '<span class="sep">' + _params.separator + '</span>' );
 						var itemTitle		:String 	= item.title.toString();
-						var itemDescription	:String 	= item.description.toString().substr(0, uint(_params.stringcut) ) + _params.stringcutend;
+						var itemDescription	:String 	= item.description.toString().substr(0, uint(_params.stringcut) ) + '<span class="stringcutend">' + _params.stringcutend + '</span>';
 						var itemLink		:String 	= item.link.toString();
-						var buf				:String 	= '<a target="_blank" href="'+itemLink+'">'+itemTitle+'</a>'+
-						                                  ( (_params.description == '1') ? ' - <p>'+itemDescription+'</p>' : '' );
+						var buf				:String 	= '<html><body><p><a target="_blank" href="'+itemLink+'">'+itemTitle+'</a>'+
+						                                  ( (_params.description == '1') ? '<span class="after_title">:</span> <p class="description">'+itemDescription+'</p>' : '' ) + '</p></body></html>';
 						_strings.push( buf );
 					}
 					_strings.push( ' <p>- Developed by</p> ' );

@@ -1,10 +1,56 @@
-﻿p {font-family:Arial, Helvetica, sans-serif;font-size:12px;}
-a,a:link,a:visited {
+﻿/**
+ * Edit this file for change rendering in Flash scroll
+ * Adobe Flash HTML engine is very strict. For example
+ * do not use:
+ *
+ * span.myclass { color:#000 }
+ *
+ * but use instead
+ *
+ * .myclass { color:#000000 }
+ *
+ */
+  
+/** 
+ * All scroll line is wrap with <p> tag paragrapher
+ */
+p {
 	font-family:Arial, Helvetica, sans-serif;
 	font-size:12px;
+	color:#c00;
+	}
+
+/**
+ * Title link of feed
+ */
+a,a:link,a:visited {
 	color:#0096ff;
 	text-decoration:underline;
+	font-weight: bold;
 	}
 a:hover{
 	color:#ff9900
 	}
+/**
+ * ":" after the link title
+ */	
+.after_title {}
+/**
+ * Description
+ */
+.description {
+	font-style:italic;
+}
+/**
+ * "*" separator feed item
+ */
+.sep {
+	width:164px;
+	display:block;
+}
+/**
+ * "[...]" string cut of description
+ */
+.stringcutend {
+	color:#bbbbbb;
+}

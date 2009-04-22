@@ -73,9 +73,18 @@ class WPSKETCH_ADMIN extends WPSKETCE_CLASS {
 		?>
 		
 		<div class="wrap">
-	    <h2><?=$this->options_title?> ver. <?=$this->version?></h2>
-	
-	
+			<div class="icon32" id="icon-options-general"><br/></div>
+	    	<h2><?=$this->options_title?> ver. <?=$this->version?></h2>
+
+			<form>
+				<table class="form-table">
+					<tr>
+						<th><label>Name</label></th>
+						<td><input type="text" /></td>
+					</tr>
+				</table>
+			</form>	
+
 			<p style="text-align:center;font-family:Tahoma;font-size:10px">Developed by <a target="_blank" href="http://www.saidmade.com"><img align="absmiddle" src="http://labs.saidmade.com/images/sm-a-80x15.png" border="0" /></a>
 				<br/>
 				more Wordpress plugins on <a target="_blank" href="http://labs.saidmade.com">labs.saidmade.com</a> and <a target="_blank" href="http://www.undolog.com">Undolog.com</a>

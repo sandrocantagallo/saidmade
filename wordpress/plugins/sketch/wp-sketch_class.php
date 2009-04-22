@@ -17,8 +17,6 @@ class WPSKETCH_CLASS {
 	var $options_key 						= "wp-sketch";			// options key to store in database
 	var $options_title						= "WP Sketch";			// label for "setting" in WP
 	
-	var $table_bannerize					= 'sketch';
-	
 	/**
 	 * Usefull vars
 	 * @internal 

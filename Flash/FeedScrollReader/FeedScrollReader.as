@@ -155,7 +155,7 @@
 			_params.scrollspeed		= Number( ( _params.scrollspeed == undefined ) ? 25 : _params.scrollspeed );
 			_params.stylesheet		= ( _params.stylesheet == undefined ) ? 'style.css' : _params.stylesheet;
 			_params.separator		= ( _params.separator == undefined ) ? '*' : _params.separator;
-			_params.description		= ( _params.description == undefined ) ? '1' : _params.description;
+			_params.description		= ( _params.description == undefined ) ? '0' : _params.description;
 			_params.stringcut		= ( _params.stringcut == undefined ) ? '50' : _params.stringcut;
 			_params.stringcutend	= ( _params.stringcutend == undefined ) ? '[...]' : _params.stringcutend;
 			_params.feedurl			= ( _params.feedurl == undefined ) ? 'http://labs.saidmade.com/feed' : _params.feedurl;

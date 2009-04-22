@@ -26,11 +26,11 @@
 
 	<?php foreach ($comments as $comment) : ?>
 
-		<li class="<?=$oddcomment?> rborder8 tdborder" id="comment-<?php comment_ID() ?>">
+		<li class="<?=$oddcomment?>" id="comment-<?php comment_ID() ?>">
 			<?php echo get_avatar( $comment, 32 ); ?>	
 			<?php printf( '<cite>%s</cite> ha detto:', get_comment_author_link()); ?>
 			<?php if ($comment->comment_approved == '0') : ?>
-			<em>Il tuo commento è in attesa di moderazione...</em>
+			<em>Il tuo commento Ã¨ in attesa di moderazione...</em>
 			<?php endif; ?>
 			<br />
 

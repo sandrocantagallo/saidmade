@@ -13,11 +13,15 @@
 <!--[if IE 6]> <![endif]-->
 
 <script type="text/javascript" src="http://www.google.com/jsapi"></script>
-<script type="text/javascript">google.load("jquery", "1.3");google.load("jqueryui", "1.7");</script>
+<script type="text/javascript">
+	google.load("jquery", "1.3");
+	google.load("jqueryui", "1.7");
+</script>
+
 <script type="text/javascript">
 	google.setOnLoadCallback( 
 		function() {
-			jQuery('a[target=_blank]').addClass('external');
+			jQuery('a[target=_blank]').not('notarget').addClass('external');
 		}
 	);
 </script>
@@ -32,7 +36,7 @@
 <div id="page">
 	<div id="header">
 		<div id="headerimg">
-			<h1><a href="<?php echo get_option('home'); ?>/"><?php bloginfo('name'); ?></a></h1>
+			<h1><a href="<?php echo get_option('home'); ?>/"><span><?php bloginfo('name'); ?></span></a></h1>
 			<div class="description"><?php bloginfo('description'); ?></div>
 		</div>
 	</div>

@@ -13,10 +13,7 @@
 <link rel="icon" href="<?php bloginfo('url'); ?>/favicon.gif" type="image/gif" />
 
 <script type="text/javascript" src="http://www.google.com/jsapi"></script>
-<script type="text/javascript">
-	google.load("jquery", "1.3");
-	google.load("jqueryui", "1.7");
-</script>
+<script type="text/javascript">google.load("jquery", "1.3");google.load("jqueryui", "1.7");</script>
 
 <script type="text/javascript">
 	google.setOnLoadCallback( 

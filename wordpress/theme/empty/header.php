@@ -5,12 +5,12 @@
 <meta http-equiv="Content-Type" content="<?php bloginfo('html_type'); ?>; charset=<?php bloginfo('charset'); ?>" />
 
 <title><?php bloginfo('name') ?></title>
+<link rel="stylesheet" href="<?php bloginfo('template_url'); ?>/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="<?php bloginfo('stylesheet_url'); ?>" type="text/css" media="screen" />
+<!--[if IE 6]> <![endif]-->
 
 <link rel="shorcut icon" href="<?php bloginfo('url'); ?>/favicon.ico" type="image/x-ico" />
 <link rel="icon" href="<?php bloginfo('url'); ?>/favicon.gif" type="image/gif" />
-
-<link rel="stylesheet" href="<?php bloginfo('stylesheet_url'); ?>" type="text/css" media="screen" />
-<!--[if IE 6]> <![endif]-->
 
 <script type="text/javascript" src="http://www.google.com/jsapi"></script>
 <script type="text/javascript">

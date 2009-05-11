@@ -4,7 +4,7 @@ Theme URI: http://www.saidmade.com
 Description: Wordpress Theme
 Author: Giovambattista Fazioli
 Author URI: http://www.undolog.com
-Version: 1.0.5
+Version: 1.1.2
 
 (C)2009 Saidmade Srl
 
@@ -12,7 +12,9 @@ Version: 1.0.5
 
 /* Global
 ------------------------------------------------------------------------------------------------------ */
-body {line-height:1;font:normal 12px Arial, Helvetica, sans-serif;vertical-align:top;background:#fff;color:#000}
+body {font: 13px/1.5 Helvetica, Arial, 'Liberation Sans', FreeSans, sans-serif;}
+
+hr {border: 0 #ccc solid;border-top-width: 1px;clear: both;height: 0;}
 
 .right {float:right;}
 .left {float:left;}
@@ -21,42 +23,28 @@ body {line-height:1;font:normal 12px Arial, Helvetica, sans-serif;vertical-align
 .aligncenter {text-align:center !important;}
 .justify {text-align:justify !important;}
 .hide {display:none;}
-.clear {clear:both;}
+
+/* http://sonspring.com/journal/clearing-floats */
+.clear {clear: both;display: block;overflow: hidden;visibility: hidden;width: 0;height: 0;}
+
+/* http://perishablepress.com/press/2008/02/05/lessons-learned-concerning-the-clearfix-css-hack */
+
+.clearfix:after {clear: both;content: ' ';display: block;font-size: 0;line-height: 0;visibility: hidden;width: 0;height: 0;}
+.clearfix {display: inline-block;}
+
+* html .clearfix {height: 1%;}
+html[xmlns] .clearfix {display: block}
+.clearfix {display: block;}
+
 .bold {font-weight:bold;}
 .italic {font-style:italic;}
 .underline {border-bottom:1px solid;}
-.highlight {background:#ffc;}
-img.centered {
-	display:block;
-	margin-left:auto;
-	margin-right:auto
-	}
-img.alignleft {
-	float:left;
-	margin:4px 10px 4px 0
-	}
-img.alignright {
-	float:right;
-	margin:4px 0 4px 10px
-	}
 
-.clearfix:after {
-	content: ".";
-	display:block;
-	clear:both;
-	visibility:hidden;
-	line-height:0;
-	height:0
-	}
-.clearfix {
-	display: block
-	}
-html[xmlns] .clearfix {
-	display: block
-	}
-* html .clearfix {
-	height: 1%
-	}
+.highlight {background:#ffc;}
+
+img.centered {display:block;margin-left:auto;margin-right:auto}
+img.alignleft {float:left;margin:4px 10px 4px 0}
+img.alignright {float:right;margin:4px 0 4px 10px}
 
 .rborder4{-webkit-border-radius:4px;-moz-border-radius:4px;border-radius:4px;-icab-border-radius:4px;-khtml-border-radius:4px}
 .rborder8{-webkit-border-radius:8px;-moz-border-radius:8px;border-radius:8px;-icab-border-radius:8px;-khtml-border-radius:8px}
@@ -65,31 +53,53 @@ html[xmlns] .clearfix {
 
 /* Links
 ------------------------------------------------------------------------------------------------------ */
-a,
-a:link, 
-a:visited {
-	color: #333
-	}
-a:hover {
-	color: #111
-	}
-a:active {
-	color: #111
-	}
+
+a,a:link,a:visited {color:#333;}
+a:hover {color:#111;}
+a:active {color:#111;}
+a:focus {outline: 1px dotted invert;}
 
 /* Headings
 ------------------------------------------------------------------------------------------------------ */
-h1 {font-size:20px}
-h2 {font-size:18px}
-h3 {font-size:16px}
-h4 {font-size:14px}
-h5 {font-size:13px}
+h1 {font-size:25px}
+h2 {font-size:23px}
+h3 {font-size:21px}
+h4 {font-size:19px}
+h5 {font-size:17px}
+h6 {font-size:15px}
+
+/* Spacing
+----------------------------------------------------------------------------------------------------*/
+
+ol {list-style: decimal;}
+ul {list-style: square;}
+li {margin-left: 30px;}
+
+p,
+dl,
+hr,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+ol,
+ul,
+pre,
+table,
+address,
+fieldset {margin-bottom: 20px;}
 
 /* Header
 ------------------------------------------------------------------------------------------------------ */
 /* Navigation
 ------------------------------------------------------------------------------------------------------ */
 /* Middle
+------------------------------------------------------------------------------------------------------ */
+/* Posts Entry
+------------------------------------------------------------------------------------------------------ */
+/* Archive
 ------------------------------------------------------------------------------------------------------ */
 /* Sidebars
 ------------------------------------------------------------------------------------------------------ */

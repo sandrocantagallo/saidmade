@@ -107,3 +107,18 @@ body > #wrap {height: auto; min-height: 100%;}
 * html .clearfix { height: 1%;}
 .clearfix {display: block;}
 /* End hide from IE-mac */
+
+/**
+ * Global
+ */
+.alignleft {text-align:left !important}
+.alignright {text-align:right !important}
+.aligncenter {text-align:center !important}
+.left {float:left !important}
+.right {float:right !important}
+.first {margin-left:0 !important}
+.last {margin-right:0 !important}
+.centered {
+	margin-left:auto !important;
+	margin-right:auto !important;
+	}

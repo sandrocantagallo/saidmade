@@ -12,7 +12,58 @@ if ( function_exists('register_sidebar') )
         'before_title' => '<h2 class="widgettitle">',
         'after_title' => '</h2>',
     ));
-    
+
+/**
+ * Identifica il TAG body per l'auto selezione in CSS
+ * @return 
+ */
+function body_id() {
+	if(!is_home()) {
+	}
+}
+
+/**
+ * Mostra i media attaccati ad un determinato post
+ * @return 
+ */
+function show_foto_idea() {
+	$ai = &get_children('post_type=attachment&post_mime_type=image&post_parent=94&numberposts=10');
+	@usort( $ai, "sortImage"); ?>
+	<div class="foto-idea">
+		<div>
+	<?php 
+		foreach($ai as $image) : ?>
+			<img style="display:none" alt="Foto Idea" src="<?php echo wp_get_attachment_url( $image->ID ) ?>" />
+	<?php endforeach; ?>
+		</div>
+	</div>
+<?php	
+} 
+function sortImage( $a, $b ) {
+	if($a->menu_order == $b->menu_order) return 0;
+	return ($a->menu_order> $b->menu_order) ? 1 : -1;
+	//return ($a->menu_order> $b->menu_order) ? -1 : 1; // decrescente
+}
+
+/**
+ * Mosrta gli aforismi in home page
+ * @return 
+ */
+function show_aforismi() {
+	global $post; ?>
+<div class="scrollable vertical">
+	 <div class="items"> 
+<?php	
+	$query = new WP_Query('category_name=aforismi&showposts=-1' );
+	while ($query->have_posts()) : $query->the_post();?>
+		<div>
+			<?php the_content() ?>
+		</div>
+	<?php endwhile; ?>
+	</div>
+</div>
+<?php		
+} 
 
 /**
  * Inserire questo codice nel file functions.php
